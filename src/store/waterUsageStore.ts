@@ -24,10 +24,25 @@ export const useWaterUsageStore = create<WaterUsageState>()(
   persist(
     (set, get) => ({
       usageHistory: [],
-      addUsage: (usage) =>
+      addUsage: (usage) => {
+        const state = get();
+        const lastUsage = state.usageHistory[state.usageHistory.length - 1];
+        
+        if (lastUsage) {
+          const lastUsageDate = new Date(lastUsage.date);
+          const currentDate = new Date();
+          const hoursDiff = (currentDate.getTime() - lastUsageDate.getTime()) / (1000 * 60 * 60);
+          
+          if (hoursDiff < 24) {
+            alert('You can only log water usage once every 24 hours. Please try again later.');
+            return;
+          }
+        }
+        
         set((state) => ({
           usageHistory: [...state.usageHistory, usage],
-        })),
+        }));
+      },
       getWeeklyTotal: () => {
         const state = get();
         const weekAgo = new Date();
