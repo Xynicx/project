@@ -1,3 +1,1 @@
-# project
-
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/Xynicx/project)
+AKU-EB CLimate change project for 2025, Every Drop Counts
